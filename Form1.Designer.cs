@@ -26,6 +26,7 @@
             BackColor = Color.Green;
             ClientSize = new Size(400, 400);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Form1";
             Text = "theRealOnePython";
             Paint += Form1_Paint;

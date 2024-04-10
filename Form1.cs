@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace theRealOnePython
 {
@@ -20,6 +21,7 @@ namespace theRealOnePython
         }
 
         char pressedKey = 's';
+        bool pressed = false;
 
         Brush pythonColor = new SolidBrush(Color.Orange);
 
@@ -50,6 +52,38 @@ namespace theRealOnePython
             timer.Interval = 200;
             timer.Tick += Timer_Tick;
             timer.Start();
+        }
+
+        private void Death()
+        {
+            timer.Stop();
+            MessageBox.Show("Python is death");
+            Application.Restart();
+            Environment.Exit(0);
+        }
+
+        private void deathCertificate()
+        {
+            var lastPart = PythonBody.Last();
+            foreach (Dictionary<char, int> pythonPart in PythonBody.Take(PythonBody.Count-1))
+            {
+                if (pythonPart.SequenceEqual(lastPart))
+                {
+                    Death();
+                }
+            }
+        }
+
+        private void isOnWinForm()
+        {
+            if (
+                PythonBody.Last()['h'] > 400 ||
+                PythonBody.Last()['w'] > 400 ||
+                PythonBody.Last()['h'] < 0 ||
+                PythonBody.Last()['w'] < 0)
+            {
+                Death();
+            }
         }
 
         private void Crawl()
@@ -90,11 +124,11 @@ namespace theRealOnePython
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-
             Crawl();
+            pressed = false;
+            deathCertificate();
+            isOnWinForm();
             Refresh();
-
-
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -109,20 +143,28 @@ namespace theRealOnePython
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if (!pressed)
             {
-                case Keys.W:
-                    pressedKey = 'w';
-                    break;
-                case Keys.A:
-                    pressedKey = 'a';
-                    break;
-                case Keys.S:
-                    pressedKey = 's';
-                    break;
-                case Keys.D:
-                    pressedKey = 'd';
-                    break;
+                switch (e.KeyCode)
+                {
+                    case Keys.W:
+                        if (pressedKey != 's')
+                            pressedKey = 'w';
+                        break;
+                    case Keys.A:
+                        if (pressedKey != 'd')
+                            pressedKey = 'a';
+                        break;
+                    case Keys.S:
+                        if (pressedKey != 'w')
+                            pressedKey = 's';
+                        break;
+                    case Keys.D:
+                        if (pressedKey != 'a')
+                            pressedKey = 'd';
+                        break;
+                }
+                pressed = true;
             }
         }
     }
