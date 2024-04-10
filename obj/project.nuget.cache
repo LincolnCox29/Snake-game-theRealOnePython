@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "8EvHS2me520P1HsrLAuTEEAHBAoJ+wV8TWdwbmMBHEY1LdgvG2fAJjTKD8UoUDkS/OIHxk2PZbnq1E5lZ+yABA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\79242\\Desktop\\Projects\\theRealOnePythin\\theRealOnePythin.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\79242\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.20\\microsoft.windowsdesktop.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\79242\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.20\\microsoft.netcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\79242\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.20\\microsoft.aspnetcore.app.ref.6.0.20.nupkg.sha512",
+    "C:\\Users\\79242\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.20\\microsoft.netcore.app.host.win-x64.6.0.20.nupkg.sha512"
+  ],
+  "logs": []
+}
