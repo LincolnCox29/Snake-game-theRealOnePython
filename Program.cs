@@ -1,6 +1,6 @@
 namespace theRealOnePython
 {
-    internal static class Program
+    static class Program
     {
         [STAThread]
         static void Main()

@@ -24,16 +24,14 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Green;
-            ClientSize = new Size(400, 400);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
             Text = "theRealOnePython";
-            Paint += Form1_Paint;
-            KeyDown += Form1_KeyDown;
+            Paint += PaintPythonBody;
+            KeyDown += KeyDownEvent;
             ResumeLayout(false);
         }
-
         #endregion
     }
 }

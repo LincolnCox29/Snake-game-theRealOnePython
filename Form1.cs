@@ -2,13 +2,19 @@ using System.Runtime.CompilerServices;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Security.Policy;
 
 namespace theRealOnePython
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
+            InitializeSettings();
+
+            InitializePythonBody();
+
             InitializeComponent();
 
             SetStyle(
@@ -18,40 +24,70 @@ namespace theRealOnePython
                 );
 
             InitializeTimer();
+
+            ClientSize = new Size(formSize, formSize);
         }
+
+        static Dictionary<string, int> settings;
 
         char pressedKey = 's';
         bool pressed = false;
 
+        bool pause = false;
+
+        static int milliseconds;
+        static int tileSize;
+        static int formSize;
+        static int halfFormSize;
+
         Brush pythonColor = new SolidBrush(Color.Orange);
 
-        List<Dictionary<char, int>> PythonBody = new List<Dictionary<char, int>>
-        {
-            new Dictionary<char, int>
-            {
-                {'h',200},
-                {'w',200}
-            },
-            new Dictionary<char, int>
-            {
-                {'h',205},
-                {'w',200}
-            },
-            new Dictionary<char, int>
-            {
-                {'h',210},
-                {'w',200}
-            },
-        };
-
+        List<Dictionary<char, int>> PythonBody = new List<Dictionary<char, int>>();
+        
         private System.Windows.Forms.Timer timer;
 
         private void InitializeTimer()
         {
             timer = new System.Windows.Forms.Timer();
-            timer.Interval = 200;
+            timer.Interval = milliseconds;
             timer.Tick += Timer_Tick;
             timer.Start();
+        }
+
+        private void InitializePythonBody()
+        {
+            PythonBody.Add(
+                new Dictionary<char, int>
+                {
+                    {'h',halfFormSize},
+                    {'w',halfFormSize}
+                }
+            );
+            PythonBody.Add(
+                new Dictionary<char, int>
+                {
+                    {'h',halfFormSize + tileSize},
+                    {'w',halfFormSize}
+                }
+            );
+            PythonBody.Add(
+                new Dictionary<char, int>
+                {
+                    {'h',halfFormSize + tileSize * 2},
+                    {'w',halfFormSize}
+                }
+            );
+        }
+
+        private void InitializeSettings()
+        {
+            Settings s = new Settings();
+            settings = s.LoadJson();
+
+            milliseconds = settings["milliseconds"];
+            tileSize = settings["tileSize"];
+            formSize = settings["formSize"];
+            halfFormSize = formSize / 2;
         }
 
         private void Death()
@@ -62,7 +98,7 @@ namespace theRealOnePython
             Environment.Exit(0);
         }
 
-        private void deathCertificate()
+        private void PythonCollision()
         {
             var lastPart = PythonBody.Last();
             foreach (Dictionary<char, int> pythonPart in PythonBody.Take(PythonBody.Count-1))
@@ -74,16 +110,14 @@ namespace theRealOnePython
             }
         }
 
-        private void isOnWinForm()
+        private void Wall—ollision()
         {
             if (
-                PythonBody.Last()['h'] > 400 ||
-                PythonBody.Last()['w'] > 400 ||
+                PythonBody.Last()['h'] > formSize -1 ||
+                PythonBody.Last()['w'] > formSize -1 ||
                 PythonBody.Last()['h'] < 0 ||
                 PythonBody.Last()['w'] < 0)
-            {
-                Death();
-            }
+                    Death();
         }
 
         private void Crawl()
@@ -94,14 +128,14 @@ namespace theRealOnePython
                 case 's':
                     PythonBody.Add(new Dictionary<char, int>
                     {
-                        {'h',PythonBody[PythonBody.Count-1]['h']+5},
+                        {'h',PythonBody[PythonBody.Count-1]['h']+tileSize},
                         {'w',PythonBody[PythonBody.Count-1]['w']}
                     });
                     break;
                 case 'w':
                     PythonBody.Add(new Dictionary<char, int>
                     {
-                        {'h',PythonBody[PythonBody.Count-1]['h']-5},
+                        {'h',PythonBody[PythonBody.Count-1]['h']-tileSize},
                         {'w',PythonBody[PythonBody.Count-1]['w']}
                     });
                     break;
@@ -109,14 +143,14 @@ namespace theRealOnePython
                     PythonBody.Add(new Dictionary<char, int>
                     {
                         {'h',PythonBody[PythonBody.Count-1]['h']},
-                        {'w',PythonBody[PythonBody.Count-1]['w']+5}
+                        {'w',PythonBody[PythonBody.Count-1]['w']+tileSize}
                     });
                     break;
                 case 'a':
                     PythonBody.Add(new Dictionary<char, int>
                     {
                         {'h',PythonBody[PythonBody.Count-1]['h']},
-                        {'w',PythonBody[PythonBody.Count-1]['w']-5}
+                        {'w',PythonBody[PythonBody.Count-1]['w']-tileSize}
                     });
                     break;
             }
@@ -126,22 +160,31 @@ namespace theRealOnePython
         {
             Crawl();
             pressed = false;
-            deathCertificate();
-            isOnWinForm();
+            PythonCollision();
+            Wall—ollision();
             Refresh();
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void PaintPythonBody(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
 
             foreach (var item in PythonBody)
             {
-                g.FillRectangle(pythonColor, item['w'], item['h'], 5, 5);
+                g.FillRectangle(pythonColor, item['w'], item['h'], tileSize, tileSize);
             }
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void Pause()
+        {
+            if (pause)
+                timer.Start();
+            else
+                timer.Stop();
+            pause = !pause;
+        }
+
+        private void KeyDownEvent (object sender, KeyEventArgs e)
         {
             if (!pressed)
             {
@@ -166,6 +209,8 @@ namespace theRealOnePython
                 }
                 pressed = true;
             }
+            if (e.KeyCode == Keys.Space)
+                Pause();
         }
     }
 }
