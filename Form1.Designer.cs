@@ -28,7 +28,7 @@
             MaximizeBox = false;
             Name = "Form1";
             Text = "theRealOnePython";
-            Paint += PaintPythonBody;
+            Paint += FormPaint;
             KeyDown += KeyDownEvent;
             ResumeLayout(false);
         }

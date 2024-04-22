@@ -15,6 +15,8 @@ namespace theRealOnePython
 
             InitializePythonBody();
 
+            AppleSpawn();
+
             InitializeComponent();
 
             SetStyle(
@@ -30,6 +32,8 @@ namespace theRealOnePython
 
         static Dictionary<string, int> settings;
 
+        Random rnd = new Random();
+
         char pressedKey = 's';
         bool pressed = false;
 
@@ -41,9 +45,11 @@ namespace theRealOnePython
         static int halfFormSize;
 
         Brush pythonColor = new SolidBrush(Color.Orange);
+        Brush appleColor = new SolidBrush(Color.Red);
 
         List<Dictionary<char, int>> PythonBody = new List<Dictionary<char, int>>();
-        
+        Dictionary<char, int> apple = new Dictionary<char, int>();
+
         private System.Windows.Forms.Timer timer;
 
         private void InitializeTimer()
@@ -96,6 +102,27 @@ namespace theRealOnePython
             MessageBox.Show("Python is death");
             Application.Restart();
             Environment.Exit(0);
+        }
+
+        private void AppleSpawn()
+        {
+            apple = new Dictionary<char, int>
+            {
+                {'h',rnd.Next(1,formSize / tileSize) * tileSize},
+                {'w',rnd.Next(1,formSize / tileSize) * tileSize}
+            };
+        }
+
+        private void FormPaint(object sender, PaintEventArgs e)
+        {
+            PaintApple(sender, e);
+            PaintPythonBody(sender, e); 
+        }
+
+        private void PaintApple(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.FillRectangle(appleColor, apple['w'], apple['h'], tileSize, tileSize);
         }
 
         private void PythonCollision()
