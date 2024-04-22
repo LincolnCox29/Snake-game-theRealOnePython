@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace theRealOnePython
 {
-	public class Settings 
+	internal class Settings 
 	{
         public Dictionary<string,int> LoadJson()
         {
