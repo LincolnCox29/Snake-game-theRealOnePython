@@ -16,7 +16,7 @@ namespace theRealOnePython
 
             python.InitializePythonBody(halfFormSize, tileSize);
 
-            apple.AppleSpawn(formSize,tileSize);
+            apple.AppleSpawn(formSize,tileSize, python);
 
             InitializeComponent();
 
@@ -31,7 +31,7 @@ namespace theRealOnePython
             ClientSize = new Size(formSize, formSize);
         }
 
-        static Dictionary<string, int> settings;
+        static Dictionary<string, int>? settings;
 
         char pressedKey = 's';
         bool pressed = false;

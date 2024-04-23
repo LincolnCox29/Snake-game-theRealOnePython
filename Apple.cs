@@ -22,13 +22,19 @@ namespace theRealOnePythin
             g.FillRectangle(appleColor, apple['w'], apple['h'], tileSize, tileSize);
         }
 
-        public void AppleSpawn(int formSize, int tileSize)
+        public void AppleSpawn(int formSize, int tileSize, Python python)
         {
-            apple = new Dictionary<char, int>
+            while(true)
             {
-                {'h',rnd.Next(1,formSize / tileSize) * tileSize},
-                {'w',rnd.Next(1,formSize / tileSize) * tileSize}
-            };
+                apple = new Dictionary<char, int>
+                {
+                    {'h',rnd.Next(1,formSize / tileSize) * tileSize},
+                    {'w',rnd.Next(1,formSize / tileSize) * tileSize}
+                };
+                if (!python.getPythonBody().Any(item => item['h'] == apple['h'] && item['h'] == 'h') &&
+                    !python.getPythonBody().Any(item => item['w'] == apple['w'] && item['w'] == 'w'))
+                        break;
+            }
         }
     }
 }

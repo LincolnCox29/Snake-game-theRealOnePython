@@ -16,6 +16,8 @@ namespace theRealOnePythin
 
         private static Pen outlinePen = new Pen(Color.Black, 1);
 
+        public List<Dictionary<char, int>> getPythonBody() => PythonBody;
+
         public void InitializePythonBody(int center, int tile)
         {
             PythonBody.Add(
@@ -81,7 +83,7 @@ namespace theRealOnePythin
             else
             {
                 apple.eaten += 1;
-                apple.AppleSpawn(formSize, tileSize);
+                apple.AppleSpawn(formSize, tileSize, this);
             }
         }
 

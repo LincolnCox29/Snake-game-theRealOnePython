@@ -7,7 +7,7 @@ namespace theRealOnePython
 {
 	internal class Settings 
 	{
-        public Dictionary<string,int> LoadJson()
+        public Dictionary<string,int>? LoadJson()
         {
             using (StreamReader r = new StreamReader("settings.json"))
             {
