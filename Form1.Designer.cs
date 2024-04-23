@@ -27,7 +27,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
-            Text = "theRealOnePython";
+            Text = "theRealOnePython apples: 0";
             Paint += FormPaint;
             KeyDown += KeyDownEvent;
             ResumeLayout(false);

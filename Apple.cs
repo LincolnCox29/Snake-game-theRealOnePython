@@ -10,7 +10,9 @@ namespace theRealOnePythin
     {
         Brush appleColor = new SolidBrush(Color.Red);
 
-        Dictionary<char, int> apple = new Dictionary<char, int>();
+        public Dictionary<char, int> apple = new Dictionary<char, int>();
+
+        public int eaten = 0;
 
         Random rnd = new Random();
 

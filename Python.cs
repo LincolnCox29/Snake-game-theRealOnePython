@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +13,8 @@ namespace theRealOnePythin
         List<Dictionary<char, int>> PythonBody = new List<Dictionary<char, int>>();
 
         Brush pythonColor = new SolidBrush(Color.Orange);
+
+        private static Pen outlinePen = new Pen(Color.Black, 1);
 
         public void InitializePythonBody(int center, int tile)
         {
@@ -67,9 +71,23 @@ namespace theRealOnePythin
                 Death(timer);
         }
 
-        public void Crawl(char pressedKey, int tileSize)
+        private void EatApple(int tileSize, int formSize, Apple apple)
         {
-            PythonBody.RemoveAt(0);
+            int pyLen = PythonBody.Count -1;
+            if (PythonBody[pyLen]['h'] != apple.apple['h'] | PythonBody[pyLen]['w'] != apple.apple['w'])
+            {
+                PythonBody.RemoveAt(0);
+            }
+            else
+            {
+                apple.eaten += 1;
+                apple.AppleSpawn(formSize, tileSize);
+            }
+        }
+
+        public void Crawl(char pressedKey, int tileSize, int formSize, Apple apple)
+        {
+            EatApple(tileSize, formSize, apple);
             switch (pressedKey)
             {
                 case 's':
@@ -107,9 +125,12 @@ namespace theRealOnePythin
         {
             Graphics g = e.Graphics;
 
-            foreach (var item in PythonBody)
+            for(int i = 0; i < PythonBody.Count; i++)
             {
+                var item = PythonBody[i];
+
                 g.FillRectangle(pythonColor, item['w'], item['h'], tileSize, tileSize);
+                g.DrawRectangle(outlinePen, item['w'], item['h'], tileSize, tileSize);
             }
         }
     }

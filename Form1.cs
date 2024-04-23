@@ -76,10 +76,11 @@ namespace theRealOnePython
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            python.Crawl(pressedKey, tileSize);
+            python.Crawl(pressedKey, tileSize, formSize, apple);
             pressed = false;
             python.PythonCollision(timer);
             python.Wall—ollision(formSize, timer);
+            this.Text = $"theRealOnePython apples: {apple.eaten}";
             Refresh();
         }
 
