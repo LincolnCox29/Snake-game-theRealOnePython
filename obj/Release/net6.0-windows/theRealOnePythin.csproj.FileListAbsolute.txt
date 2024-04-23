@@ -1,0 +1,17 @@
+C:\Users\79242\Desktop\Projects\theRealOnePython\bin\Release\net6.0-windows\theRealOnePythin.exe
+C:\Users\79242\Desktop\Projects\theRealOnePython\bin\Release\net6.0-windows\theRealOnePythin.deps.json
+C:\Users\79242\Desktop\Projects\theRealOnePython\bin\Release\net6.0-windows\theRealOnePythin.runtimeconfig.json
+C:\Users\79242\Desktop\Projects\theRealOnePython\bin\Release\net6.0-windows\theRealOnePythin.dll
+C:\Users\79242\Desktop\Projects\theRealOnePython\bin\Release\net6.0-windows\theRealOnePythin.pdb
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePythin.csproj.AssemblyReference.cache
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePython.Form1.resources
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePythin.csproj.GenerateResource.cache
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePythin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePythin.AssemblyInfoInputs.cache
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePythin.AssemblyInfo.cs
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePythin.csproj.CoreCompileInputs.cache
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePythin.dll
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\refint\theRealOnePythin.dll
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePythin.pdb
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\theRealOnePythin.genruntimeconfig.cache
+C:\Users\79242\Desktop\Projects\theRealOnePython\obj\Release\net6.0-windows\ref\theRealOnePythin.dll
