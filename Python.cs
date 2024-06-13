@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using theRealOnePython;
 
 namespace theRealOnePythin
 {
@@ -16,10 +17,18 @@ namespace theRealOnePythin
 
         private static Pen outlinePen = new Pen(Color.Black, 1);
 
+        private readonly Settings settings;
+
+        public Python(Settings _settings) 
+        {
+            settings = _settings;
+        }
+
         public List<Dictionary<char, int>> getPythonBody() => PythonBody;
 
-        public void InitializePythonBody(int center, int tile)
+        public void InitializePythonBody()
         {
+            int center = settings.getFormSize / 2;
             PythonBody.Add(
                 new Dictionary<char, int>
                 {
@@ -30,17 +39,37 @@ namespace theRealOnePythin
             PythonBody.Add(
                 new Dictionary<char, int>
                 {
-                    {'h',center + tile},
+                    {'h',center + settings.getTileSize},
                     {'w',center}
                 }
             );
             PythonBody.Add(
                 new Dictionary<char, int>
                 {
-                    {'h',center + tile * 2},
+                    {'h',center + settings.getTileSize * 2},
                     {'w',center}
                 }
             );
+        }
+
+        public void PaintPythonBody(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+
+            for (int i = 0; i < PythonBody.Count; i++)
+            {
+                var item = PythonBody[i];
+
+                g.FillRectangle(pythonColor, item['w'], item['h'], settings.getTileSize, settings.getTileSize);
+                g.DrawRectangle(outlinePen, item['w'], item['h'], settings.getTileSize, settings.getTileSize);
+            }
+        }
+
+        public void Update(char pressedKey, Apple apple, System.Windows.Forms.Timer timer)
+        {
+            Crawl(pressedKey, apple);
+            PythonCollision(timer);
+            WallСollision(timer);
         }
 
         private void Death(System.Windows.Forms.Timer timer)
@@ -51,7 +80,7 @@ namespace theRealOnePythin
             Environment.Exit(0);
         }
 
-        public void PythonCollision(System.Windows.Forms.Timer timer)
+        private void PythonCollision(System.Windows.Forms.Timer timer)
         {
             var lastPart = PythonBody.Last();
             foreach (Dictionary<char, int> pythonPart in PythonBody.Take(PythonBody.Count - 1))
@@ -63,11 +92,11 @@ namespace theRealOnePythin
             }
         }
 
-        public void WallСollision(int formSize, System.Windows.Forms.Timer timer)
+        private void WallСollision(System.Windows.Forms.Timer timer)
         {
             if (
-                PythonBody.Last()['h'] > formSize - 1 ||
-                PythonBody.Last()['w'] > formSize - 1 ||
+                PythonBody.Last()['h'] > settings.getFormSize - 1 ||
+                PythonBody.Last()['w'] > settings.getFormSize - 1 ||
                 PythonBody.Last()['h'] < 0 ||
                 PythonBody.Last()['w'] < 0)
                 Death(timer);
@@ -83,26 +112,26 @@ namespace theRealOnePythin
             else
             {
                 apple.eaten += 1;
-                apple.AppleSpawn(formSize, tileSize, this);
+                apple.AppleSpawn(this);
             }
         }
 
-        public void Crawl(char pressedKey, int tileSize, int formSize, Apple apple)
+        private void Crawl(char pressedKey, Apple apple)
         {
-            EatApple(tileSize, formSize, apple);
+            EatApple(settings.getTileSize, settings.getFormSize, apple);
             switch (pressedKey)
             {
                 case 's':
                     PythonBody.Add(new Dictionary<char, int>
                     {
-                        {'h',PythonBody[PythonBody.Count-1]['h']+tileSize},
+                        {'h',PythonBody[PythonBody.Count-1]['h']+settings.getTileSize},
                         {'w',PythonBody[PythonBody.Count-1]['w']}
                     });
                     break;
                 case 'w':
                     PythonBody.Add(new Dictionary<char, int>
                     {
-                        {'h',PythonBody[PythonBody.Count-1]['h']-tileSize},
+                        {'h',PythonBody[PythonBody.Count-1]['h']-settings.getTileSize},
                         {'w',PythonBody[PythonBody.Count-1]['w']}
                     });
                     break;
@@ -110,29 +139,16 @@ namespace theRealOnePythin
                     PythonBody.Add(new Dictionary<char, int>
                     {
                         {'h',PythonBody[PythonBody.Count-1]['h']},
-                        {'w',PythonBody[PythonBody.Count-1]['w']+tileSize}
+                        {'w',PythonBody[PythonBody.Count-1]['w']+settings.getTileSize}
                     });
                     break;
                 case 'a':
                     PythonBody.Add(new Dictionary<char, int>
                     {
                         {'h',PythonBody[PythonBody.Count-1]['h']},
-                        {'w',PythonBody[PythonBody.Count-1]['w']-tileSize}
+                        {'w',PythonBody[PythonBody.Count-1]['w']-settings.getTileSize}
                     });
                     break;
-            }
-        }
-
-        public void PaintPythonBody(object sender, PaintEventArgs e, int tileSize)
-        {
-            Graphics g = e.Graphics;
-
-            for(int i = 0; i < PythonBody.Count; i++)
-            {
-                var item = PythonBody[i];
-
-                g.FillRectangle(pythonColor, item['w'], item['h'], tileSize, tileSize);
-                g.DrawRectangle(outlinePen, item['w'], item['h'], tileSize, tileSize);
             }
         }
     }

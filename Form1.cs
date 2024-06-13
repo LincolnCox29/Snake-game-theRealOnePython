@@ -9,77 +9,50 @@ namespace theRealOnePython
 {
     public partial class Form1 : Form
     {
-
         public Form1()
         {
-            InitializeSettings();
-
-            python.InitializePythonBody(halfFormSize, tileSize);
-
-            apple.AppleSpawn(formSize,tileSize, python);
-
+            python.InitializePythonBody();
+            apple.AppleSpawn(python);
             InitializeComponent();
-
             SetStyle(
                 ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.AllPaintingInWmPaint |
                 ControlStyles.UserPaint, true
                 );
-
             InitializeTimer();
-
-            ClientSize = new Size(formSize, formSize);
+            ClientSize = new Size(settings.getFormSize, settings.getFormSize);
         }
-
-        static Dictionary<string, int>? settings;
 
         char pressedKey = 's';
         bool pressed = false;
-
         bool pause = false;
 
-        static int milliseconds;
-        static int tileSize;
-        static int formSize;
-        static int halfFormSize;
+        static Settings settings = new Settings();
 
-        Python python = new Python();
+        Python python = new Python(settings);
 
-        Apple apple = new Apple();
+        Apple apple = new Apple(settings);
 
         private System.Windows.Forms.Timer timer;
 
         private void InitializeTimer()
         {
             timer = new System.Windows.Forms.Timer();
-            timer.Interval = milliseconds;
+            timer.Interval = settings.getMilliseconds;
             timer.Tick += Timer_Tick;
             timer.Start();
         }
 
-        private void InitializeSettings()
-        {
-            Settings s = new Settings();
-            settings = s.LoadJson();
-
-            milliseconds = settings["milliseconds"];
-            tileSize = settings["tileSize"];
-            formSize = settings["formSize"];
-            halfFormSize = formSize / 2;
-        }
-
         private void FormPaint(object sender, PaintEventArgs e)
         {
-            apple.PaintApple(sender, e, tileSize);
-            python.PaintPythonBody(sender, e, tileSize); 
+            apple.PaintApple(sender, e);
+            python.PaintPythonBody(sender, e); 
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            python.Crawl(pressedKey, tileSize, formSize, apple);
             pressed = false;
-            python.PythonCollision(timer);
-            python.Wall—ollision(formSize, timer);
+            python.Update(pressedKey, apple, timer);
             this.Text = $"theRealOnePython apples: {apple.eaten}";
             Refresh();
         }

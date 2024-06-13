@@ -5,14 +5,49 @@ using System.Text.Json.Serialization;
 
 namespace theRealOnePython
 {
-	internal class Settings 
+	class Settings 
 	{
-        public Dictionary<string,int>? LoadJson()
+        private int milliseconds;
+        private int formSize;
+        private int tileSize;
+
+        public Settings() 
+        {
+            Dictionary<string, int> jsonData = LoadJson();
+            milliseconds = jsonData["milliseconds"];
+            formSize = jsonData["formSize"];
+            tileSize = jsonData["tileSize"];
+        }
+
+        public int getMilliseconds
+        {
+            get => milliseconds;
+        }
+
+        public int getFormSize
+        { 
+            get => formSize;
+        }
+        
+        public int getTileSize
+        {
+            get => tileSize;
+        }
+
+        private Dictionary<string,int>? LoadJson()
         {
             using (StreamReader r = new StreamReader("settings.json"))
             {
                 string json = r.ReadToEnd();
-                return JsonSerializer.Deserialize<Dictionary<string, int>>(json);
+                try
+                {
+                    return JsonSerializer.Deserialize<Dictionary<string, int>>(json);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return null;
+                }
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using theRealOnePython;
 
 namespace theRealOnePythin
 {
@@ -12,24 +13,31 @@ namespace theRealOnePythin
 
         public Dictionary<char, int> apple = new Dictionary<char, int>();
 
+        private readonly Settings settings;
+
         public int eaten = 0;
 
         Random rnd = new Random();
 
-        public void PaintApple(object sender, PaintEventArgs e, int tileSize)
+        public Apple(Settings _settings) 
         {
-            Graphics g = e.Graphics;
-            g.FillRectangle(appleColor, apple['w'], apple['h'], tileSize, tileSize);
+            settings = _settings;
         }
 
-        public void AppleSpawn(int formSize, int tileSize, Python python)
+        public void PaintApple(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.FillRectangle(appleColor, apple['w'], apple['h'], settings.getTileSize, settings.getTileSize);
+        }
+
+        public void AppleSpawn(Python python)
         {
             while(true)
             {
                 apple = new Dictionary<char, int>
                 {
-                    {'h',rnd.Next(1,formSize / tileSize) * tileSize},
-                    {'w',rnd.Next(1,formSize / tileSize) * tileSize}
+                    {'h',rnd.Next(1,settings.getFormSize / settings.getTileSize) * settings.getTileSize},
+                    {'w',rnd.Next(1,settings.getFormSize / settings.getTileSize) * settings.getTileSize}
                 };
                 if (!python.getPythonBody().Any(item => item['h'] == apple['h'] && item['h'] == 'h') &&
                     !python.getPythonBody().Any(item => item['w'] == apple['w'] && item['w'] == 'w'))
