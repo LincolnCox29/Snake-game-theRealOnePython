@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using theRealOnePython;
 
-namespace theRealOnePythin
+namespace theRealOnePython
 {
     internal class Apple
     {
