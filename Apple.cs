@@ -41,7 +41,7 @@ namespace theRealOnePython
                 };
                 if (!python.getPythonBody().Any(item => item['h'] == apple['h'] && item['h'] == 'h') &&
                     !python.getPythonBody().Any(item => item['w'] == apple['w'] && item['w'] == 'w'))
-                        break;
+                        return;
             }
         }
     }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\79242\\Desktop\\Projects\\theRealOnePython\\theRealOnePythin.csproj": {}
+    "C:\\Users\\79242\\Desktop\\Projects\\Snake-game-theRealOnePython\\theRealOnePythin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\79242\\Desktop\\Projects\\theRealOnePython\\theRealOnePythin.csproj": {
+    "C:\\Users\\79242\\Desktop\\Projects\\Snake-game-theRealOnePython\\theRealOnePythin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\79242\\Desktop\\Projects\\theRealOnePython\\theRealOnePythin.csproj",
+        "projectUniqueName": "C:\\Users\\79242\\Desktop\\Projects\\Snake-game-theRealOnePython\\theRealOnePythin.csproj",
         "projectName": "theRealOnePythin",
-        "projectPath": "C:\\Users\\79242\\Desktop\\Projects\\theRealOnePython\\theRealOnePythin.csproj",
+        "projectPath": "C:\\Users\\79242\\Desktop\\Projects\\Snake-game-theRealOnePython\\theRealOnePythin.csproj",
         "packagesPath": "C:\\Users\\79242\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\79242\\Desktop\\Projects\\theRealOnePython\\obj\\",
+        "outputPath": "C:\\Users\\79242\\Desktop\\Projects\\Snake-game-theRealOnePython\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\79242\\AppData\\Roaming\\NuGet\\NuGet.Config",
